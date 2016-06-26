@@ -84,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
                 if (statusABoolean) {
                     MyAlert myAlert = new MyAlert();
                     myAlert.myDialog(MainActivity.this, "ไม่มี User นี้", "ไม่มี" + userString + " ในฐานข้อมูลของเรา");
+                } else if (passwordString.equals(truePasswordString)) {
+
+                    Intent intent = new Intent(MainActivity.this, ShowBookActivity.class);
+                    startActivity(intent);
+
+                } else {
+
+                    MyAlert myAlert = new MyAlert();
+                    myAlert.myDialog(MainActivity.this, "Password fail",
+                            "Please try again");
+
                 }
 
             } catch (Exception e) {
