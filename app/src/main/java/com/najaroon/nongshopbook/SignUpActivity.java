@@ -5,6 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
 public class SignUpActivity extends AppCompatActivity {
 
     //  Explicit
@@ -12,6 +22,9 @@ public class SignUpActivity extends AppCompatActivity {
             nameEditText, addressEditText;
     private String userString, passwordString,
             nameString, addressString;
+    private static final String urlPHP = "http://swiftcodingthai.com/25JUN/add_user_nong.php";
+    private static final String moneySTRING = "500";
+
 
 
     @Override
@@ -53,7 +66,29 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void uploadUserToServer() {
 
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = new FormEncodingBuilder()
+                .add("isAdd", "true")
+                .add("User", userString)
+                .add("Password", passwordString)
+                .add("Name", nameString)
+                .add("Address", addressString)
+                .add("Money", moneySTRING)
+                .build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url(urlPHP).post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override   // ถ้าโยนค่าไม่สำเร็จ
+            public void onFailure(Request request, IOException e) {
 
+            }
+
+            @Override  // ถ้าโยนค่าสำเร็จ
+            public void onResponse(Response response) throws IOException {
+                finish();
+            }
+        });
 
     }
 
