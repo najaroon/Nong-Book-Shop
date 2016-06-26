@@ -10,6 +10,8 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+
 public class ShowBookActivity extends AppCompatActivity {
 
     //Explicit
@@ -52,6 +54,20 @@ public class ShowBookActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            Log.d("26JuneV1", "JSON ==>>>>> " + s);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(s);
+                String[] nameStrings = new String[jsonArray.length()];
+                String[] priceStrings = new String[jsonArray.length()];
+                String[] coverStrings = new String[jsonArray.length()];
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }   //onPost
 
     }   // Class
