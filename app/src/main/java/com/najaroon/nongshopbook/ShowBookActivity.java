@@ -11,6 +11,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ShowBookActivity extends AppCompatActivity {
 
@@ -63,6 +64,19 @@ public class ShowBookActivity extends AppCompatActivity {
                 String[] nameStrings = new String[jsonArray.length()];
                 String[] priceStrings = new String[jsonArray.length()];
                 String[] coverStrings = new String[jsonArray.length()];
+
+                for (int i=0; i<jsonArray.length(); i++) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    nameStrings[i] = jsonObject.getString("Name");
+                    priceStrings[i] = jsonObject.getString("Price");
+                    coverStrings[i] = jsonObject.getString("Cover");
+
+                }   // for
+
+                bookAdapter bookAdapter = new bookAdapter(ShowBookActivity.this, nameStrings, priceStrings, coverStrings);
+                listView.setAdapter(bookAdapter);
 
             } catch (Exception e) {
                 e.printStackTrace();
